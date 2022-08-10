@@ -10,7 +10,7 @@ spotify = spotipy.Spotify(client_credentials_manager=spotipy.oauth2.SpotifyClien
 
 def get_artists_from_playlist(playlist_uri):
     playlist_tracks = spotify.playlist_tracks(playlist_id=playlist_uri)
-    artists = []
+    artists = {}
     for song in playlist_tracks['items']:
         if song['track']:
             print(song['track']['artists'][0]['name'])
