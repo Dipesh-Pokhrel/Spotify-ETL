@@ -1,0 +1,38 @@
+## Ignogre vscode file ##
+.vscode/
+.vscode/settings.json
+.vscode/tasks.json
+.vscode/launch.json
+.vscode/extensions.json
+.history.vscode/settings.json
+
+## Ignore __pycache__ ##
+**/__pycache__/
+
+# pyenv
+.python-version
+
+## ignore all files generated at runtime ##    
+*.lock
+*.temp
+*.log
+
+## Terraform ##
+**.terrafromm**
+
+# .tfstate files ##
+*.tfstate
+
+# Crash log files ##
+crash.log
+
+# Ignoring any .tfvars files that are generated auctomatically for each terraform run
+# Not including .tfvars congiguration files
+**/.tfvars
+
+# Ignore override files as they are usually used to override resources created by terraform
+*_override.tf
+* _override.tf.json
+
+# Include tfplan files to ignore the plan output of command: terraform plan -out=tfplan
+*tfplan*
