@@ -93,4 +93,3 @@ def lambda_function(event, context):
 
 if __name__ == '__main__':
     data = gather_data_local()
-
