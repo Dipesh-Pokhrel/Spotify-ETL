@@ -34,7 +34,7 @@ def gather_data_local():
         artists = get_artists_from_playlist(spotify_playlist()[PLAYLIST])
         for artist in list(artists.keys()):
             print(artists)
-            artist_albums = spotify_object.artist_albums(artist, album_type='album', limit=50)
+            artist_albums = spotify_object.artist_albums(artist, album_type='album', limit=1)
             for album in artist_albums['items']:
                 if "GB" and "US" in album['available_markets']:
                     key = album['name'] + album['artists'][0]['name'] + album['release_date']
@@ -59,16 +59,16 @@ def gather_data_local():
     return final_data_dictionary
 
 def  gather_data():
-    with open ("/temp/rapcavier_albums.csv") as file:
+    with open ("/temp/rapcavier_albums.csv", 'w') as file:
         header = ['Year Released', 'Album Length', 'Album Name', 'Artist']
         writer = csv.DictWriter(file, fieldnames=header)
         writer.writeheader()
 
         artists = get_artists_from_playlist(spotify_playlist()[PLAYLIST])
-        for artist in list(artists.keys()):
-            artists_albums = spotify_object.artist_albums (artist , album_type= 'album', limit=50)
+        for artist in artists.keys():
+            artists_albums = spotify_object.artist_albums (artist , album_type= 'album', limit=1)
             for album in artists_albums['items']:
-                if "GB" and "US" in album['available_markets']:
+                if "GB" in album['items'][0]['available_markets']:
                     album_data = spotify_object.album(album['uri'])
                     album_length = 0 
                     for song in album_data['tracks']['items']:
@@ -83,8 +83,8 @@ def  gather_data():
 
     s3_resource = boto3.resource('s3')
     date = datetime.now()
-    filename = f'{date.yar}/{date.month}/{date.day}/rapcavier_albums.csv'
-    response = s3_resource.Object(Bucket='spotify-data', Key = filename).upload_file('/temp/rapcavier_albums.csv')
+    filename = f'{date.year}/{date.month}/{date.day}/rapcavier_albums.csv'
+    response = s3_resource.Object(Bucket='spotify-playlist-data', Key = filename).upload_file('/temp/rapcavier_albums.csv')
     return response
 
 
@@ -92,4 +92,4 @@ def lambda_function(event, context):
     gather_data()
 
 if __name__ == '__main__':
-    data = gather_data_local()
+   data = gather_data_local()
