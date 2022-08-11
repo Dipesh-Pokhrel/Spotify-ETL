@@ -1,6 +1,6 @@
-resource "aws_lambda_function" "spotify_data" {
+resource "aws_lambda_function" "spotify_playlist_data" {
   filename = "../payload.zip"
-  function_name = "spotify_data"
+  function_name = "spotify_playlist_data"
   handler = "avg_album_length_playlist.lambda_function"
   role = "${aws_iam_role.lambda_execution_role.arn}"
   runtime = "python3.9"
