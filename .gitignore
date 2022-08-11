@@ -8,17 +8,32 @@
 
 ## Ignore __pycache__ ##
 **/__pycache__/
+*.cache
 
 # pyenv
 .python-version
 
-## ignore all files generated at runtime ##    
+## ignore all files generated at runtime ##   
 *.lock
 *.temp
 *.log
+*.exe
+
+## Ignoring virtualenv ##
+venv/
+Lib/
+Scripts/
+bin/
+include/
+*.cfg
+
+# Ignoring .config files
+*.config
 
 ## Terraform ##
-**.terrafromm**
+**/.terraform/**
+*.tfvars
+*/**/.terraform.lock.hcl
 
 # .tfstate files ##
 *.tfstate
